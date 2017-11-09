@@ -1,0 +1,637 @@
+<template>
+  <div class="pro">
+    <div class="xs-intro">
+      <div class="title">
+        <span class="main-title xs-h30b">{{displayData[this.$route.params.msg.index][this.$route.params.msg.subindex].title}}</span>
+        <span class="sub-title xs-h206">{{displayData[this.$route.params.msg.index][this.$route.params.msg.subindex].subTitle}}</span>
+      </div>
+      <div class="xs-line xs-mt10"></div>
+      <div class="content xs-mt14 xs-t14">
+        <p class="xs-paragraph">{{displayData[this.$route.params.msg.index][this.$route.params.msg.subindex].p1}}</p>
+        <p class="xs-paragraph2" v-if="displayData[this.$route.params.msg.index][this.$route.params.msg.subindex].para2flag">{{displayData[this.$route.params.msg.index][this.$route.params.msg.subindex].p2}}</p>
+      </div>
+      <div class="xs-col-content" v-for="item in displayData[this.$route.params.msg.index][this.$route.params.msg.subindex].contentItems">
+        <div class="item xs-mt24">
+          <div class="xs-h24" v-if="item.itemtitleflag">
+            {{item.itemtitle}}
+          </div>
+          <div class="xs-t14 xs-mt14" v-if="item.itemparagflag">
+            <p class="yt-paragraph">{{item.itemparag}}</p>
+            <div v-if="item.multparaflag" v-for="para in item.multparadata">
+              <p class="xs-paragraph2">{{para}}</p>
+            </div>
+          </div>
+          <div class="illustration" v-if="item.itemimgflag">
+            <img :src="item.imgpath" alt="">
+          </div>
+          <video class="xs-video-player" autoplay="autoplay" preload="auto" loop :poster="item.itemvideoimg" v-if="item.itemvideoflag">
+            <source type="video/mp4" :src="item.itemvideosrc">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+// 人脸识别技术
+import a_1 from '../../../assets/img/technicalexp/a_1人脸检测与分析.jpg'
+import a_3_2 from '../../../assets/img/technicalexp/a_3.2人脸验证.jpg'
+import a_3_1 from '../../../assets/img/technicalexp/a_3.1人脸检索.png'
+import a_2 from '../../../assets/img/technicalexp/a_2五官定位页面.jpg'
+import a_5 from '../../../assets/img/technicalexp/a_5活体检测.jpg'
+import facepointtrack from '../../../assets/img/technicalexp/face_points_track.png'
+import video1 from '../../../assets/img/technicalexp/video_1.mp4'
+
+// 图片识别技术
+import b_1 from '../../../assets/img/technicalexp/b_1图片内容识别.jpg'
+import b_2_1 from '../../../assets/img/technicalexp/b_2.1身份证.jpg'
+
+
+var displayTextArr = [
+[{
+  title:'小视人脸检测与分析技术',
+  subTitle:'[人脸识别技术的基石]',
+  p1:'人脸检测与分析技术，是人脸识别的第一步。是指对于任意一副给定的图像，采用一定的策略对其进行搜索以确定其中是否含有人脸，如果是则返回人脸的位置、大小，性别，姿态等属性。',
+  p2:'人脸检测是人脸识别的第一步。优图的人脸检测技术在国际权威数据库FDDB上测试，可以达到99%的准确率和95%以上的召回率',
+  para2flag:true,
+  contentItems:[{
+    itemtitle:'1.人脸检测',
+    itemparag:'人脸检测是众多人脸技术的一个基础，基于它可以实现性别识别，表情识别，人脸识别等技术，在这些技术之上，可以设计出各种各样的产品形态，如圈人、人像管理、美容等。优图人脸检测支持强光，弱光，黑夜等多种复杂环境情况下的人脸检测。并且可检测出正脸，侧脸等多种角度人脸的位置。在主流PC和客户端上可以达到实时检测的效果。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_1
+  },{
+    itemtitle:'2.性别识别',
+    itemparag:'性别是人脸中较为基础与关键的属性。一系列属性识别的常规做法是，先对人脸进行性别分类，在分类的基础上，基于男女自身的特点来分析表情、年龄、种族等属性',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_1
+  },{
+    itemtitle:'3.表情识别',
+    itemparag:'日常生活中最常见的表情一般分为七种，喜悦、愤怒、悲伤、惊讶、厌恶、恐惧、中性。由于用户在互联网上传的人脸图片表情以喜悦和中性居绝大多数，优图团队化繁为简，从性价比与敏捷开发的角度出发，着眼于这两类表情的细化与区分，将人脸的笑意程度进行分级，分为中性、微笑、大笑等三类',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_1
+  },{
+    itemtitle:'4.年龄估值',
+    itemparag:'给定一张人脸图像，让计算机去估计这个人的年龄。世界上最好的算法可以将这个范围缩小到5岁以内， 腾讯优图团队在年龄估计上也做了深入的探索。从模式识别的角度，得到年龄估计模型，在内部测试集上取得了误差估计小于5岁的范围。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_1
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:true,
+    multparaflag:false,
+    imgpath: a_1
+  }]
+},{
+  title:'小视五官定位技术',
+  subTitle:'[人脸创意应用的核心]',
+  p1:'五官识别技术，精确定位面部的关键区域位置，包括眉毛、眼睛、鼻子、嘴巴，脸部轮廓等。五官定位具有很高挑战性，需要适应不同表情、性别、年龄、姿态、光照条件，如果没有五官定位技术作为支撑，很多创意应用就成为无本之木。人脸属性识别需要精确的双眼位置，人脸美化、人脸变形、人脸漫画、人脸换脸，更需要极其精确的五官位置信息。优图对自拍照片做到了90点人脸五官定位。定位偏差1.5像素，接近人工水平。',
+  p2:'',
+  para2flag:false,
+  contentItems:[{
+    itemtitle:'1.精度极高',
+    itemparag:'基于Boosting人脸形状回归模型和精细标注训练数据。90点五官定位，精度极高，大部分照片接近人工标注结果，为后续应用提供了坚实的支撑。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_1
+  },{
+    itemtitle:'2.速度快',
+    itemparag:'速度快，在主流智能手机上耗时可以控制在50ms以内。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_2
+  },{
+    itemtitle:'3.模型小',
+    itemparag:'模型数据可以控制在2MB以内，可以根据不同平台灵活配置，应用范围广',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_2
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:true,
+    multparaflag:false,
+    imgpath: a_2
+  }]
+},{
+  title:'小视人脸识别技术',
+  subTitle:'[世界领先的人脸识别算法]',
+  p1:'人脸识别技术是一种依据人的面部特征，自动进行身份鉴别的一种技术，它综合运用了数字图像、视频处理、模式识别等多种技术。通过人脸特征提取和相似度比对，对于已经矫正好的两个人脸，会通过某种表达提取初始特征，然后应用知识模型对特征进行处理，最后再在度量空间里来计算两个特征的相似度。这个分值会告诉你这两个脸是不是同一个人的。人脸识别的过程包括：数据采集、人脸检测、五官定位、人脸预处理、特征提取。',
+  p2:'',
+  para2flag:false,
+  contentItems:[{
+    itemtitle:'1.人脸验证技术(1:1识别)',
+    itemparag:'人脸识别技术可以计算出两张人脸照片的相似度，从而判断是否为同一人，即1：1身份验证。优图人脸识别通过传统方法和深度学习技术结合，以空间面孔墙和微众银行远程核身为基础，在性能上达到LFW 99.80%。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_1
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:true,
+    multparaflag:false,
+    imgpath: a_3_2
+  },{
+    itemtitle:'2.人脸检索技术(1：N识别)',
+    itemparag:'给定一张照片，和数据库中N个人脸进行对比，给出是否为其中某一个人，或者给出排序结果，即人脸检索。1：N用于用户不需要声明身份的场景。根据人脸数据的采集方式，光线条件，配合与非配合，各种人脸识别技术的成熟度差异很大。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    imgpath: a_1
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:true,
+    multparaflag:false,
+    imgpath: a_3_1
+  },{
+    itemtitle:'3.产品优势',
+    itemparag:'强大的人脸训练模型：立足于腾讯社交数据大平台收集的海量人脸训练集，成功标注的千万人脸数据。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:true,
+    multparadata:['方法最全：高维LBP、PCA、LDA   联合贝叶斯、度量学习、迁移学习、深度神经网络',
+    '技术最好： 优图独创Uface深度人脸模型，LFW评测以99.80%目前世界领先。实际互联网金融场景测试，自拍-身份证缩略图对比0.01%错误率，通过率95%'],
+    imgpath: a_1
+  },{
+    itemtitle:'4.技术指标',
+    itemparag:'',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:true,
+    multparadata:['•    FAR：False Accept Rate，错误接受率，指将身份不同的两张照片，判别为相同身份，越低越好',
+    '•    FRR：False Reject Rate，错误拒绝率，指将身份相同的两张照片，判别为不同身份，越低越好',
+    '这两个指标有明确的物理意义，FAR决定了系统的安全性，FRR决定了系统的易用程度，在实际中，FAR对应的风险远远高于FRR，因此，生物识别系统中，会将FAR设置为一个非常低的范围，如万分之一甚至百万分之一，在FAR固定的条件下，FRR低于5%，这样的系统才有实用价值。','小视科技的人脸识别算法在实际互联网金融场景测试，自拍-身份证缩略图对比达到0.01%错误率，通过率95%',
+    '速度指标',
+    '•    支持最小人脸尺寸64x64',
+    '•    人脸特征尺寸1-2KB',
+    '•    1：1人脸对比500ms'],
+    imgpath: a_1
+  },{
+    itemtitle:'5.常见的应用场景',
+    itemparag:'门禁系统：受安全保护的地区可以通过人脸识别辨识试图进入者的身份，比如小区、学校、企业等。敏感地点也可以使用人脸识别门禁，未登记人员访问将触发报警。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:true,
+    multparadata:['摄像监视系统：在例如银行、机场、体育场、商场、超级市场等公共场所对人群进行监视，以达到身份识别的目的。同时疑犯布控追踪也是较为常见的应用场景。',
+    '学生考勤系统：香港及澳门的中、小学已开始将智能卡配合人脸识别来为学生进行每天的出席点名记录，内地高校也进行了有关试点。',
+    '娱乐应用：自动美妆美图、人脸属性识别、颜值分析，都是已经成熟使用的娱乐场景。'],
+    imgpath: a_1
+  }]
+},{
+  title:'小视活体检测技术',
+  subTitle:'[安全的防火墙]',
+  p1:'在人脸识别系统中，为了防止不法分子窃取利用他人的照片或者视频进行欺诈，需要使用活体检测技术来阻挡照片、视频、人头模型等各种不同类型的攻击。 腾讯优图为不同场景提供成熟而灵活的解决方案，有针对性地研发了多种类型的活体检测技术，可以有效提高验证的安全性同时保证真人的通过率，极大地降低人工成本。 目前优图团队的活体检测技术分为基于交互式的活体检测技术和基于无交互的活体检测技术。',
+  p2:'',
+  para2flag:false,
+  contentItems:[{
+    itemtitle:'1.有交互式的活体检测技术',
+    itemparag:'•   唇语活体检测方法',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:true,
+    multparadata:['优图独创的基于随机验证码的唇语活体检测方法，首次实现了实用化水平，已经应用于WeBank远程的核身业务，在错误率0.1%的情况下，通过率超过90%，能够减少95%以上的现有人工审核投入。该方法交互自然、高安全性，且不受方言甚至语种的影响。','•   基于摇头、眨眼等交互式的活体检测方法',' 该方法鲁棒性高，应用场景广泛，可以防止照片、视频等各种不同类型的攻击。'],
+    imgpath: a_2
+  },{
+    itemtitle:'2.无交互的活体检测技术',
+    itemparag:'•   双目无交互的活体检测方法',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:true,
+    multparadata:['优图团队基于人脸特征点和双目立体视觉，通过分析人脸的三维几何信息来进行人脸活体检测。这是一种针对高安全度的人脸核身验证研发的方法，与以往的方法比安全性更高，速度更快，实时处理速度。','•   单目无交互的活体检测方法','优图团队基于深度卷积神经网络，着力挖掘的攻击图片的特征，针对普通场景，使用单目摄像头进行无交互的活体检测，应用在闸机、门禁等场景，在错误率0.1%的情况下，通过率超过95%，实时处理速度，用户体验好。'],
+    imgpath: a_2
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:true,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5
+  }]
+},{
+  title:'小视人脸关键点追踪技术',
+  subTitle:'[视频人脸创意应用的核心]',
+  p1:'小视人脸关键点追踪技术，精确定位并追踪面部的关键区域位置，使得随着视频内容变化而能够快速定位人脸包括五官所在位置，并且适用于不同表情、性别、年龄、姿态、光照等条件。优图对视频做到了90点人脸关键点追踪，定位偏差1.8像素，接近人工水平。并包含追踪成功/失败检测机制，置信度高达99%。优图人脸关键点追踪技术为视频类人脸特效、基于运动交互的活体检测等应用提供了坚实基础。',
+  p2:'',
+  para2flag:false,
+  contentItems:[{
+    itemtitle:'1.实时多脸追踪',
+    itemparag:'传统人脸关键点追踪技术不具备判定追踪是否成功的能力，为避免追踪过程中出现丢失的现象（追踪到非人脸区域），必须依赖耗时较长的人脸检测，而这种耗计算资源技术方案在移动端应用中显得捉襟见肘。优图此次研发的人脸关键点追踪技术基于多任务深度神经网络，同时完成“人脸关键点定位”和“人脸判定”两个任务。大幅提升了追踪速度和用户体验。 稳定、精准追踪：支持大角度侧脸、快速移动人脸、多人追踪场景。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5
+  },{
+    itemtitle: '2.精度极高',
+    itemparag:'基于精细标注训练数据实现的视频人脸90点追踪，精度极高，大部分视频接近人工标注结果，为后续应用提供了坚实的支撑。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5
+  },{
+    itemtitle:'3.适配角度',
+    itemparag:'在手机上可实时追踪，支持快速移动人脸追踪，并且支持平面内手机360度旋转和头部左右摇头约正负30度。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5
+  },{
+    itemtitle:'4.速度快',
+    itemparag:'速度快，在主流智能手机上耗时可以控制在5ms/人脸。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5
+  },{
+    itemtitle:'5.模型小',
+    itemparag:'模型数据可以控制在1MB以内，可以根据不同平台灵活配置，应用范围广。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5,
+    itemvideoflag:true,
+    itemvideoimg: facepointtrack,
+    itemvideosrc: video1
+  }]
+}],[{
+  title:'小视图片内容识别技术',
+  subTitle:'[解密图片信息的钥匙]',
+  p1:'小视图片内容识别技术基于团队自研的深度识别引擎，核心算法与基础模型经过多轮优化，可以准确快速地识别图片内容信息。标签范围涵盖上百种热词，囊括了社交生活、人物、风景、建筑、常见生活物品等大类，较全面的支持了不同维度层次的图片语义信息提取。相关技术在2015年4月Pascal VOC2012物体分类比赛中刷新世界记录，目前在图片识别领域位于世界前列。',
+  p2:'',
+  para2flag:false,
+  contentItems:[{
+    itemtitle:'1.标签体系覆盖面广',
+    itemparag:'基于社交生活场景海量图像数据挖掘，萃取出热度最高的常见百种热词标签，并按语义层次归类，能涵盖日常生活照片的各个信息维度，有效解码图片内容信息。相册归类、趣味识图，应用场景任你想象。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'2.识别准确率高',
+    itemparag:'基于世界一流水平的深度识别引擎打造，从海量社交场景图片数据中学习，准确读懂图片内容信息，相关技术在2015年4月Pascal VOC2012物体分类比赛中刷新世界记录，目前在图片识别领域位于世界前列。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'3.服务接口响应快',
+    itemparag:'核心算法与基础模型经过多轮优化，数百种标签的识别，平均处理时长仅需数百毫秒，真正支持超大规模图片的内容信息提取，图片大数据，就是这么玩。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'4.高扩展性',
+    itemparag:'基于语义树扩展的标签体系，能够灵活支持更多自定义标签，具备迁移学习的能力，识别维度和粒度将不断扩展。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: a_5,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:true,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  }]
+},{
+  title:'小视深度识别引擎',
+  subTitle:'[为您量身订制图片分类服务]',
+  p1:'优图深度识别引擎基于世界一流水准的自研通用图片分类模型打造，可基于用户提交数据，快速迁移学习，实现贴合用户个性化业务场景的图片分类服务。零学习门槛，让非专业人士也能轻松快速的获得个性化自定义的图片分类服务，体验深度学习的强大功能。美食分类、花卉分类、玩具分类等等领域内垂直分类场景，轻松应对，无需四处寻找各种专业方案，借助优图深度识别引擎，您自己就能一并完成。',
+  p2:'',
+  para2flag:false,
+  contentItems:[{
+    itemtitle:'1.高准确率',
+    itemparag:'基于世界一流水准的自研通用图片分类模型打造，内部测试在有较多标注数据的垂直分类场景下，平均识别准确率可达90%左右，真正可实用的订制化图片分类服务。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'2.零学习门槛',
+    itemparag:'无需掌握专业的机器学习/人工智能知识，只需按照指引提交固定格式的标注数据，一键提交，即可获得您专属的图片分类服务。借助优图深度识别引擎，高大上的深度学习就是这么平易近人。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'3.广泛的适用场景',
+    itemparag:'美食分类、花卉分类、玩具分类等等，通通易搞定，借助优图强大的通用图片分类基础模型+灵活快速的迁移学习技术，各种领域内垂直分类场景都能适用。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  }]
+}],[{
+  title:'身份证OCR识别技术',
+  subTitle:'[最方便快捷的身份信息采集方案]',
+  p1:'OCR识别指利用光学字符识别技术，将图片上的文字内容，直接转换为可编辑文本。优图OCR识别技术支持数字识别和超过7000个常用汉字的识别，在内部测试集上，单字识别准确率可达到中文98%以上，数字99%以上。',
+  p2:'身份证OCR识别技术，支持二代身份证正反面关键字段识别，可识别所有字段。为用户提供最方便快捷的身份证信息录入体验，可用于金融场景下的客户身份识别、视频场景下的主播实名认证、电商场景下的买家卖家身份认证等。',
+  para2flag:true,
+  contentItems:[{
+    itemtitle:'1.高精度',
+    itemparag:'基于优图强大的深度学习算法和中文检测识别技术，各字段精度均处于业界领先水平，其中身份证号码关键字识别精准度达到99.9%以上，姓名识别准确率98%以上。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'2.便捷性',
+    itemparag:'实时文字识别，支持身份证正反面的识别，一次扫描识别页面所有字段。用户仅需轻轻一拍，即可自动完成身份证信息的识别录入，极大提升了产品体验。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'3.成熟稳定',
+    itemparag:'小视身份证识别服务已成功应用于微众银行、QQ、广点通等内部核心业务，接受过海量用户和复杂场景的考验，产品成熟稳定，各项反馈良好，你值得信赖。',
+    itemtitleflag:true,
+    itemparagflag:true,
+    itemimgflag:false,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  },{
+    itemtitle:'',
+    itemparag:'',
+    itemtitleflag:false,
+    itemparagflag:false,
+    itemimgflag:true,
+    multparaflag:false,
+    multparadata:[],
+    imgpath: b_2_1,
+    itemvideoflag:false,
+    itemvideoimg: '',
+    itemvideosrc: ''
+  }]
+}]
+];
+
+
+export default {
+  name: 'profile',
+  data () {
+    return {
+      msg: 'profile',
+      displayData:displayTextArr,
+      index:0,
+      subindex:0
+    }
+  },
+  created () {
+    console.log(this.$route.params.msg);
+    this.index = this.$route.params.msg.index;
+    this.subindex = this.$route.params.msg.subindex;
+    console.log(this.index);
+    console.log(this.subindex);
+
+  },
+  mounted () {
+    // console.log('mounted:\n');
+    // console.log(this.$route.params);
+  },
+  watch: {
+    '$route':function() {
+      // body...
+      console.log('fsfsfsfs');
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+.pro div {
+  display: block;
+}
+.pro h1, h2 {
+  font-weight: normal;
+}
+
+.pro .xs-intro {
+  position: relative;
+  background: #fff;
+  width: 100%;
+}
+
+.pro .xs-intro .main-title {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.pro .xs-intro .sub-title {
+  padding-left: 15px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.pro .xs-intro .xs-h30b {
+  font-size: 30px;
+  color: #333;
+  font-weight: bold;
+}
+
+.pro .xs-intro .xs-h206 {
+  font-size: 20px;
+  color: #666;
+}
+
+.pro .xs-line {
+  position: relative;
+  height: 0;
+  border-top: 1px solid #999;
+}
+
+.pro .xs-mt10 {
+  margin-top: 10px;
+}
+
+.pro .xs-intro .content {
+  position: relative;
+  width: 100%;
+}
+
+.pro .xs-mt14 {
+  margin-top: 14px;
+}
+
+.pro .xs-t14 {
+  font-size: 14px;
+  color: #737373;
+}
+
+.pro .xs-paragraph {
+  line-height: 1.428;
+  padding: 0;
+}
+
+.pro .xs-paragraph2 {
+  line-height: 1.428;
+  padding: 0;
+  margin-top: 6px;
+}
+
+.pro ul, ol, p, h1, h2, h3, h4, h5, h6, dd, dl {
+    margin: 0;
+}
+
+.pro .xs-col-content {
+  margin-top: 6px !important;
+  /*position: relative;
+  background: #fff;
+  width: 100%;*/
+}
+
+.pro .xs-col-content .xs-mt24 {
+  margin-top: 24px;
+}
+
+.pro .xs-intro .item {
+  position: relative;
+  width: 100%;
+}
+
+.pro .xs-h24 {
+  font-size: 24px;
+  color: #333;
+}
+
+.pro .xs-mt14 {
+  margin-top: 14px;
+}
+
+.pro .xs-t14 {
+  font-size: 14px;
+  color: #737373;
+}
+
+.pro .xs-intro .illustration {
+  width: 100%;
+  height: auto;
+}
+
+.pro .xs-video-player {
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+.pro video {
+  object-fit: contain;
+}
+
+</style>

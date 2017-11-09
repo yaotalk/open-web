@@ -1,0 +1,164 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import Homepage from '@/components/homepage/Homepage'
+import Technicalexp from '@/components/technicalexp/Technicalexp'
+import Aboutxs from '@/components/aboutxs/Aboutxs'
+import Developercenter from '@/components/developercenter/Developercenter'
+import Firmservice from '@/components/firmservice/Firmservice'
+import Profile from  '@/components/technicalexp/tech/Profile'
+import Experience from  '@/components/technicalexp/tech/Experience'
+import newuser from '@/components/developercenter/newuser/newuser'
+import authent from '@/components/developercenter/newuser/authent'
+import apisum from '@/components/developercenter/api/apisum'
+import enterprise from '@/components/firmservice/enterprise'
+import cooperation from '@/components/firmservice/cooperation'
+import Match from  '@/components/technicalexp/tech/Match'
+import Verify from  '@/components/technicalexp/tech/Verify'
+import Blank from  '@/components/technicalexp/tech/Blank'
+import Appmanage from  '@/components/login/appmanage'
+import Newmessage from  '@/components/login/newmessage'
+import Createapp from  '@/components/login/createapp'
+import detect from '@/components/developercenter/api/detect'
+import sdk from  '@/components/developercenter/dev/sdk'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      redirect: '/homepage/homepage'
+    },
+    {
+      path: '/homepage',
+      redirect: '/homepage/homepage'
+    },
+    // {
+    //   path: '/test',
+    //   name: 'Test',
+    //   component: Test
+    // },
+    {
+      path: '/login/appmanage',
+      name: 'appmanage',
+      component: Appmanage
+    },
+    {
+      path: '/login/newmessage',
+      name: 'newmessage',
+      component: Newmessage
+    },
+    {
+      path: '/login/createapp',
+      name: 'createapp',
+      component: Createapp
+    },
+    {
+      path: '/homepage/homepage',
+      name: 'homepage',
+      component: Homepage
+    },
+    {
+      path: '/technicalexp',
+      name: 'technicalexp',
+      component: Technicalexp
+    },
+    {
+      path: '/technicalexp/technicalexp',
+      name: 'technicalexp',
+      component: Technicalexp,
+      children: [
+        {
+          path: '/tech/profile',
+          name: 'profile',
+          component: Profile
+        },
+        {
+          path: '/tech/experience',
+          name: 'experience',
+          component: Experience
+        },
+        {
+          path: '/tech/match',
+          name: 'match',
+          component: Match
+        },
+        {
+          path: '/tech/verify',
+          name: 'verify',
+          component: Verify
+        },
+        {
+          path: '/tech/blank',
+          name: 'blank',
+          component: Blank
+        }
+      ]
+    },
+    {
+      path: '/aboutxs/aboutxs',
+      name: 'aboutxs',
+      component: Aboutxs
+    },
+    {
+      path: '/develop',
+      name: 'develop',
+      component: Developercenter,
+      children: [
+          {
+            path: 'newuser',
+            name: 'newuser',
+            component: newuser,
+        },
+          {
+              path: 'authent',
+              name: 'authent',
+              component: authent,
+          },
+          {
+              path: 'apisum',
+              name: 'apisum',
+              component: apisum,
+          },
+          {
+              path: 'detect',
+              name: 'detect',
+              component: detect,
+          },
+          {
+              path: 'sdk',
+              name: 'sdk',
+              component: sdk,
+          },
+          {
+              path: '*',
+              redirect: newuser,
+          },
+          {
+              path: '/',
+              redirect: newuser,
+          }
+          ]
+    },
+    {
+      path: '/firmservice',
+      name: 'firmservice',
+      component: Firmservice,
+        children: [
+            {
+                path: 'enterprise',
+                name: 'enterprise',
+                component: enterprise,
+            } ,
+            {
+                path: 'cooperation',
+                name: 'cooperation',
+                component: cooperation,
+            }]
+    },
+      {
+          path: '*',
+          redirect: Homepage,
+      }
+  ]
+})

@@ -1,0 +1,127 @@
+<template>
+  <div class="yt-content">
+    <div class="help-section">
+      <div class="help-title">接入流程</div>
+      <img class="help-line" src="../../../assets/img/developer/title_line.png">
+      <div class="step">
+      <Steps :current="4">
+        <Step title="体验" content="智能识别技术" icon="ios-heart"></Step>
+        <Step title="申请" content="开发者账号" icon="person-add"></Step>
+        <Step title="创建" content="应用获取开发秘钥" icon="ios-email"></Step>
+        <Step title="集成" content="sdk进行开发"></Step>
+      </Steps>
+      </div>
+    </div>
+    <div class="guide-steps">
+      <Timeline>
+        <TimelineItem>
+          <li class="step">
+            <div class="head">成为开发者</div>
+            <p>点击腾讯小视开放平台页面右上角“注册”按钮，弹出QQ登录框，QQ登录成功后，绑定邮箱即可成为一名开发者。</p>
+            <p>Step1:  QQ账号登录</p>
+            <p>Step2:   绑定邮箱</p>
+          </li>
+        </TimelineItem>
+        <TimelineItem>
+          <div class="head">01 创建应用</div>
+          <p>1) 在腾讯小视开放平台首页点击“立即接入”，填写应用的相关信息，完成应用创建。</p>
+          <p>2) 点击“应用管理”-&gt;”创建应用”， 填写应用的相关信息，完成应用创建。</p>
+          <p>3) 目前最多只能创建20个应用</p>
+        </TimelineItem>
+        <TimelineItem>
+          <div class="head">02 分配开发密钥</div>
+          <p>完成应用创建后，开放平台会为您分发一对密钥。</p>
+          <p>AppID、SecretID和SecretKey是您进行应用开发的唯一凭证，开放平台暂不支持密钥的更换，请您妥善保管。</p>
+        </TimelineItem>
+        <TimelineItem>
+          <div class="head">03 分配开发密钥</div>
+          <p>完成应用创建后，开放平台会为您分发一对密钥。</p>
+          <p>AppID、SecretID和SecretKey是您进行应用开发的唯一凭证，开放平台暂不支持密钥的更换，请您妥善保管。</p>
+        </TimelineItem>
+        <TimelineItem>
+          <div class="head">04 签名的生成</div>
+          <p>开放平台通过签名来验证请求的合法性，用户可以使用AppID、SecretID和SecretKey生成签名，具体签名生成方法请参阅
+          </p>
+        </TimelineItem>
+        <TimelineItem>
+          <div class="head">05 调用OpenApi，进行开发</div>
+          <p>目前我们为您提供了OpenApi的服务形式进行开发。小视开放平台以免费服务的形式为您提供。
+            API的使用说明，请查阅API文档
+          </p>
+        </TimelineItem>
+        <router-link class="guide-button" :to="'/develop/sdk'">下载SDK</router-link>
+        <!--<a href="javascript:void(0)" class="guide-button" @click="test()">下载SDK</a>-->
+      </Timeline>
+    </div>
+  </div>
+</template>
+<script>
+
+  export default{
+  	name: 'newuser',
+  	data () {
+  	  return {
+  	      test:this.selected
+  	  }
+  	},
+      created:function () {
+          this.$emit('on-result-change', 'newuser')
+      }
+  }
+</script>
+<style scoped>
+  .help-title{
+    font-size: 20px;
+  }
+  .step{
+    margin-top: 3%;
+  }
+  .help-body .constr_non_index {
+    width: 1172px;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .yt-content {
+    margin-left: 300px;
+    width: 870px;
+    min-height: calc(100vh - 217px);
+    font-size: 16px;
+    color: #636363;
+    overflow: hidden;
+    background: #fff;
+    padding-left: 50px;
+  }
+  .help-section{
+    /*background: url(../../../assets/img/developer/title_icon1.png) no-repeat;*/
+    margin-bottom: 34px;
+    overflow: hidden;
+  }
+  .guide-steps {
+    display: block;
+  }
+  .guide-steps p {
+    margin-left: 86px;
+    font-size: 16px;
+    color: #999999;
+  }
+  .guide-button {
+    display: inline-block;
+    position: relative;
+    width: 116px;
+    height: 40px;
+    left: 86px;
+    margin-top: 34px;
+    bottom: 20px;
+    font-size: 15px;
+    color: #207bec;
+    text-align: center;
+    line-height: 40px;
+    border: solid #207bec 1px;
+    -wbkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+  }
+</style>

@@ -2,8 +2,6 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-var webpack=require('webpack');
-
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -48,6 +46,14 @@ module.exports = {
         }
       },
       {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+        }
+      },
+      {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
@@ -56,12 +62,5 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins: [
-      new webpack.ProvidePlugin({  
-      $:"jquery",  
-      jQuery:"jquery",  
-      "windows.jQuery":"jquery"  
-      })  
-  ]
+  }
 }

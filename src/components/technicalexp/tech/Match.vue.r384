@@ -1,0 +1,319 @@
+<template>
+  <div class="match">
+    <div class="xs-intro">
+      <div class="xs-exp-wall">
+        <div class="wrapper">
+          <ul>
+            <li v-for="(item,index) in faceImagesItems" @click="clickPicWall(item.imagedownloadurl)">
+              <a href="javascript:void 0">
+                <img :src="item.imageurl" alt="" @mouseover="mouseoverxs(index)" @mouseout="mouseoutxs(index)" :class="{dystyle1: item.style1,dystyle2: item.style2}">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="xs-exp-demo">
+        <div class="xs-exp-face-verify">
+          <div class="left">
+          </div>
+          <div class="right">
+          </div>
+          <div class="verify-button" @click="onFaceVerify()">人脸检测</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+import face01 from '../../../assets/img/technicalexp/facedetect/icon_face_01.jpg'
+import face02 from '../../../assets/img/technicalexp/facedetect/icon_face_02.jpg'
+import face03 from '../../../assets/img/technicalexp/facedetect/icon_face_03.jpg'
+import face04 from '../../../assets/img/technicalexp/facedetect/icon_face_04.jpg'
+import face05 from '../../../assets/img/technicalexp/facedetect/icon_face_05.jpg'
+
+
+var imagesArr = [{
+  name:'a',
+  imageurl:face01,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face02,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face03,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face04,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face05,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face01,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face02,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face03,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face04,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face05,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face01,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face02,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face03,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face04,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face05,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face01,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face02,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face03,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face04,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+},{
+  name:'a',
+  imageurl:face05,
+  style1:true,
+  style2:false,
+  imagedownloadurl:''
+}];
+
+export default {
+  name: 'match',
+  data () {
+    return {
+      msg: 'match',
+      faceImagesItems:imagesArr
+    }
+  },
+  created () {
+    console.log('created:\n');
+    console.log(this.$route.params);
+  },
+  mounted () {
+    console.log('mounted:\n');
+    console.log(this.$route.params);
+  },
+  methods: {
+    mouseoverxs:function (index) {
+      // body...
+      for(var i=0;i<this.faceImagesItems.length;i++){
+        if (i == index) {
+          console.log('mouseover');
+          this.faceImagesItems[i].style1 = false;
+          this.faceImagesItems[i].style2 = true;
+        }else{
+          this.faceImagesItems[i].style1 = true;
+          this.faceImagesItems[i].style2 = false;
+        }
+      }
+    },
+    mouseoutxs:function (index) {
+      console.log('mouseout');
+      for(var i=0;i<this.faceImagesItems.length;i++){
+        this.faceImagesItems[i].style1 = true;
+        this.faceImagesItems[i].style2 = false;
+      }
+    },
+    onFaceVerify:function(obj){
+      alert('人脸检测');
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+.match div {
+    display: block;
+}
+
+.match h1, h2 {
+  font-weight: normal;
+}
+
+.match .xs-intro {
+  position: relative;
+  background: #fff;
+  width: 100%;
+}
+
+.match .xs-exp-wall {
+  height: 218px;
+  background: #808080;
+  overflow: hidden;
+}
+
+.match .xs-exp-wall .wrapper {
+  width: 872px;
+}
+
+.match .xs-exp-wall ul {
+  position: relative;
+  top: 0px;
+  margin: 0 auto 0 auto;
+  overflow: hidden;
+}
+
+.match ul, ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+.match .xs-exp-wall li {
+  float: left;
+  width: 109px;
+  height: 109px;
+  overflow: hidden;
+  background: #c6c9cc;
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.match a {
+  color: #207BEC;
+  text-decoration: none;
+  cursor: auto;
+}
+
+/*动态绑定样式*/
+.match .dystyle1 {
+  width: 109px;
+  height: 109px;
+  /*filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);*/
+  /*-moz-opacity: 0.60;*/
+  opacity: 0.60;
+  border: 0;
+  vertical-align: bottom;
+}
+
+.match .dystyle2 {
+  width: 109px;
+  height: 109px;
+  /*-moz-opacity: 1.0;*/
+  opacity: 1.0;
+  border: 0;
+  vertical-align: bottom;
+}
+
+.match .xs-exp-demo {
+  display: inline-block;
+  margin-top: 14px;
+  float: right;
+  background: #fff;
+}
+
+.match .xs-exp-face-verify {
+  position: relative;
+  height: 1200px;
+}
+
+.match .xs-exp-face-verify .left {
+  width: 430px;
+  float: left;
+  position: relative;
+}
+
+.match .xs-exp-face-verify .right {
+  position: relative;
+  margin-left: 10px;
+  width: 430px;
+  float: left;
+}
+
+.match .xs-exp-face-verify .verify-button {
+  position: relative;
+    float: left;
+    margin-top: 30px;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    background: #65efc4;
+}
+
+
+
+</style>

@@ -1,0 +1,40 @@
+<template>
+  <div class="verify">
+    <div class="xs-intro">
+      <h1>{{msg}}</h1>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'verify',
+  data () {
+    return {
+      msg: 'verify'
+    }
+  },
+  created () {
+    console.log('created:\n');
+    console.log(this.$route.params);
+  },
+  mounted () {
+    console.log('mounted:\n');
+    console.log(this.$route.params);
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.verify h1, h2 {
+  font-weight: normal;
+}
+
+.verify .xs-intro {
+  position: relative;
+  background: #fff;
+  width: 100%;
+}
+
+</style>

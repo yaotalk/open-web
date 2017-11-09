@@ -1,0 +1,375 @@
+<template>
+  <div class="match">
+    <div class="xs-intro">
+      <div class="xs-exp-wall">
+        <div class="wrapper">
+          <ul>
+            <li v-for="(item,index) in faceImagesItems" @click="clickPicWall(item.imagedownloadurl)">
+              <a href="javascript:void 0">
+                <img :src="item.imageurl">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="xs-exp-demo">
+        <div class="xs-exp-face-verify">
+          <div class="left" style="width: 428px">
+            <div class="canvas430">
+              <div class="fork-class-exp-image">
+                <div class="border">
+                  <div class="show-layer">
+                    <img id="face-img" alt="demo" :src="imgSrc" >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="xs-exp-demo-input">
+              <div class="fileUpload">
+                <input type="file" class="upload" @change="getFileUrl(true)"  ref="upFile"/>
+              </div>
+              <div class="paste">
+                <input type="text" placeholder="使用网络图片,请粘贴图片URL" class="url-field">
+                <button class="xs-exp-demo-btn xs-exp-demo-analysisBtn">分析</button>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="similar">
+              <div class="line">
+                <div v-for="(item,index) in faceItems" class="item">
+                  <img class="pic" :src= 'item.imagedownloadurl'>
+                  <div :class="index == 0?'score_label score':'score_label score_blue'"></div>
+                  <div class="score_text">{{item.name}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="verify-button" @click="onFaceVerify()">人脸检测</div>
+          <div class="result-container">
+            <div class="verify-result">
+              <p align="center">The similarity between the two faces is</p>
+              <div class="similar-score ng-binding ng-isolate-scope">55%</div>
+            </div>
+          </div>
+        </div>
+        <div class="request-body">
+          <div>
+            <div class="box-border">
+              <div class="req-title">REQUEST:</div>
+            </div>
+          </div>
+        </div>
+        <div class="response-body">
+          <div class="box-border">
+            <div class="req-title">RESPONSE:</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+<<<<<<< .mine
+
+    import face01 from '../../../assets/img/technicalexp/facedetect/icon_face_01.jpg'
+    import face02 from '../../../assets/img/technicalexp/facedetect/icon_face_02.jpg'
+    import face03 from '../../../assets/img/technicalexp/facedetect/icon_face_03.jpg'
+    import face04 from '../../../assets/img/technicalexp/facedetect/icon_face_04.jpg'
+    import face05 from '../../../assets/img/technicalexp/facedetect/icon_face_05.jpg'
+
+
+    var imagesArr = [{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:'http://open.youtu.qq.com/content/img/product/face/face_01.jpg?v=2.0'
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:'http://open.youtu.qq.com/content/img/product/face/face_02.jpg?v=2.0'
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    }];
+
+    export default {
+        name: 'verify',
+        data () {
+            return {
+                imgSrc: imagesArr[0].imagedownloadurl,
+                faceImagesItems:imagesArr,
+                faceItems:imagesArr.slice(0,9)
+            }
+        },
+        created () {
+        },
+        mounted () {
+            this.gcurrentgIndex = 1;
+            for(var i=0;i<5;i++){
+                $($($('div.nav ul li').children()[i]).children()[1]).removeClass();
+                $($($($('div.nav ul li').children()[i]).children()[0]).children()[0]).removeClass();
+                // $($($('div.nav ul li').children()[i]).children()[0]).children()[0]
+            }
+            $($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[1]).addClass('nav-item-selected');
+            $($($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[0]).children()[0]).addClass('nav-text-selected');
+        },
+        methods: {
+            clickPicWall: function (item) {
+                    this.imgSrc = item;
+                     this.$refs.upFile.value='';
+            },
+            onFaceVerify: function (obj) {
+                let form_data = new FormData();
+                alert(this.$refs.upFile.value)
+//          form_data.append("facesetTokens", '58e4b634-03e2-4295-a2c4-bafda1930850');
+//          form_data.append("limit", 1);
+//          form_data.append("threshold", 20);
+//          form_data.append("imgfile", this.$refs.upFile.files[0]);
+//          const _this = this;
+//          this.$axios.post('http://192.168.123.82:8080/api/v1/faceSearch',form_data).then(function (result) {
+//                  _this.textarea = _this.formatterJson(JSON.stringify(result.data));
+//              }
+//          ).catch(function (error) {
+//              console.error(error)
+//          });
+            },
+            getFileUrl(isUpload) {
+                if (isUpload) {
+                    if (navigator.userAgent.indexOf("MSIE") >= 1) { // IE
+                        this.imgSrc = $("#file-uploader")[0].value;
+                    } else if (navigator.userAgent.indexOf("Firefox") > 0) { // Firefox
+                        this.imgSrc = window.URL.createObjectURL(this.$refs.upFile.files[0]);
+                    } else if (navigator.userAgent.indexOf("Chrome") > 0) { // Chrome
+                        this.imgSrc = window.URL.createObjectURL(this.$refs.upFile.files[0]);
+                    }
+                }
+            }
+        }
+||||||| .r384
+export default {
+  name: 'verify',
+  data () {
+    return {
+      msg: 'verify'
+=======
+
+    import face01 from '../../../assets/img/technicalexp/facedetect/icon_face_01.jpg'
+    import face02 from '../../../assets/img/technicalexp/facedetect/icon_face_02.jpg'
+    import face03 from '../../../assets/img/technicalexp/facedetect/icon_face_03.jpg'
+    import face04 from '../../../assets/img/technicalexp/facedetect/icon_face_04.jpg'
+    import face05 from '../../../assets/img/technicalexp/facedetect/icon_face_05.jpg'
+
+
+    var imagesArr = [{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:'http://open.youtu.qq.com/content/img/product/face/face_01.jpg?v=2.0'
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:'http://open.youtu.qq.com/content/img/product/face/face_02.jpg?v=2.0'
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face01,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face02,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face03,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face04,
+        imagedownloadurl:''
+    },{
+        name:'a',
+        imageurl:face05,
+        imagedownloadurl:''
+    }];
+
+    export default {
+        name: 'verify',
+        data () {
+            return {
+                imgSrc: imagesArr[0].imagedownloadurl,
+                faceImagesItems:imagesArr,
+                faceItems:imagesArr.slice(0,9)
+            }
+        },
+        created () {
+        },
+        mounted () {
+            this.gcurrentgIndex = 1;
+            for(var i=0;i<5;i++){
+                $($($('div.nav ul li').children()[i]).children()[1]).removeClass();
+                $($($($('div.nav ul li').children()[i]).children()[0]).children()[0]).removeClass();
+                // $($($('div.nav ul li').children()[i]).children()[0]).children()[0]
+            }
+            $($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[1]).addClass('nav-item-selected');
+            $($($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[0]).children()[0]).addClass('nav-text-selected');
+        },
+        methods: {
+            clickPicWall: function (item) {
+                this.imgSrc = item;
+                this.$refs.upFile.value='';
+            },
+            onFaceVerify: function (obj) {
+                let form_data = new FormData();
+                alert(this.$refs.upFile.value)
+//          form_data.append("facesetTokens", '58e4b634-03e2-4295-a2c4-bafda1930850');
+//          form_data.append("limit", 1);
+//          form_data.append("threshold", 20);
+//          form_data.append("imgfile", this.$refs.upFile.files[0]);
+//          const _this = this;
+//          this.$axios.post('http://192.168.123.82:8080/api/v1/faceSearch',form_data).then(function (result) {
+//                  _this.textarea = _this.formatterJson(JSON.stringify(result.data));
+//              }
+//          ).catch(function (error) {
+//              console.error(error)
+//          });
+            },
+            getFileUrl(isUpload) {
+                if (isUpload) {
+                    if (navigator.userAgent.indexOf("MSIE") >= 1) { // IE
+                        this.imgSrc = $("#file-uploader")[0].value;
+                    } else if (navigator.userAgent.indexOf("Firefox") > 0) { // Firefox
+                        this.imgSrc = window.URL.createObjectURL(this.$refs.upFile.files[0]);
+                    } else if (navigator.userAgent.indexOf("Chrome") > 0) { // Chrome
+                        this.imgSrc = window.URL.createObjectURL(this.$refs.upFile.files[0]);
+                    }
+                }
+            }
+        }
+>>>>>>> .r430
+    }
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  @import "../../../assets/css/tech/compare.css";
+</style>

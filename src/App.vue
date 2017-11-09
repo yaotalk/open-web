@@ -1,149 +1,666 @@
 <template>
-  <div id="app">
-    <div class="entrancenav">
-      <Menu mode="horizontal" :theme="theme" active-name="1" @on-select="clickMenu">
-        <Menu-item name="1">
-          <Icon type="videocamera"></Icon>
-          实时监控
-        </Menu-item>
-        <Menu-item name="2">
-          <Icon type="search"></Icon>
-          查询检索
-        </Menu-item>
-        <Menu-item name="3">
-          <Icon type="settings"></Icon>
-          系统设置
-        </Menu-item>
-        <!-- <Submenu name="4">
-            <template slot="title">
-                <Icon type="stats-bars"></Icon>
-                统计分析
-            </template>
-            <Menu-group title="使用">
-                <Menu-item name="3-1">新增和启动</Menu-item>
-                <Menu-item name="3-2">活跃分析</Menu-item>
-                <Menu-item name="3-3">时段分析</Menu-item>
-            </Menu-group>
-            <Menu-group title="留存">
-                <Menu-item name="3-4">用户留存</Menu-item>
-                <Menu-item name="3-5">流失用户</Menu-item>
-            </Menu-group>
-        </Submenu> -->
-      </Menu>
+  <div id="app" class="mainapp">
+    <!-- <img src="./assets/logo.png"> -->
+    <div class="xs-header" style="background: #07102c;">
+    <div class="shadow"></div>
+    <login :modalShow="isShow" :loginOrRegister="xslorr" @on-result-change="onShowResultChange" @on-login-success="onLoginSuccessChange"></login>
+    <div class="left">
+      <div class="xs-logo-icon"></div>
     </div>
-    <router-view></router-view>
-    <div class="entrancefooter">
-      <div class="copyright">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <span>2017-{{xsdate}} Copyright&copy; <a
-                href="http://www.minivision.cn">小视科技</a></span>
-            </div>
+    <div class="right">
+      <div class="bar">
+        <div class="nav">
+          <ul>
+            <li>
+              <div class="nav-item">
+                <div class="nav-item-content">
+                  <a :class="this.nav == 0?'nav-text-selected':'nav-text-normal'" @click="clickTopNav(0,'/homepage')">首页</a>
+                </div>
+                <div :class="this.nav == 0?'nav-item-selected':''"></div>
+              </div>
+            </li>
+            <li>
+              <div class="nav-item">
+                <div class="nav-item-content">
+                  <a :class="this.nav == 1?'nav-text-selected':'nav-text-normal'" @click="clickTopNav(1,'/tech/')" >技术体验中心</a>
+                </div>
+                <div :class="this.nav == 1?'nav-item-selected':''"></div>
+              </div>
+            </li>
+            <li>
+              <div class="nav-item">
+                <div class="nav-item-content">
+                  <a :class="this.nav == 2?'nav-text-selected':'nav-text-normal'" @click="clickTopNav(2,'/develop/newuser')">开发者中心</a>
+                </div>
+                <div :class="this.nav == 2?'nav-item-selected':''"></div>
+              </div>
+            </li>
+            <li>
+              <div class="nav-item">
+                <div class="nav-item-content">
+                  <a :class="this.nav == 3?'nav-text-selected':'nav-text-normal'" @click="clickTopNav(3,'/service/enterprise')">企业服务</a>
+                </div>
+                <div  :class="this.nav ==3?'nav-item-selected':''"></div>
+              </div>
+            </li>
+            <li>
+              <div class="nav-item">
+                <div class="nav-item-content">
+                  <a :class="this.nav == 4?'nav-text-selected':'nav-text-normal'" @click="clickTopNav(4,'/about/')">关于小视AI</a>
+                </div>
+                <div :class="this.nav == 4?'nav-item-selected':''"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div id="header_logout" class="info">
+          <div class="logout" v-if="logoutStatus">
+            <a id="login" href="javascript:;" class="info-a" @click="loginOrregister(0)">登录</a>
+            <img :src="loginimg" alt="" class="divide-img">
+            <a href="javascript:;" id="register" class="info-a" @click="loginOrregister(1)">注册</a>
+            <img :src="loginimg" alt="" class="divide-img">
+            <a href="javascript:" @mouseover="mouseoverxs(12)" @mouseout="mouseoutxs(12)" class="pub">
+              <img :src="loginimg2" alt="" class="code">
+              <div class="dropbox">
+                <i class="dropbox-arrow"></i>
+                <div class="dropbox-content">
+                  <img :src="loginimg3" alt="" class="dropbox-img">
+                  <p class="dropbox-p">
+                    扫码关注<br>小视公众号
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="login" v-if="loginStatus">
+            <p id="nametip">1013696270@qq.com</p>
+            <p style="margin-top: 7px;">
+              <a href="javascript:;" id="message" class="info-a" @click="showMessage(2)">新消息(0)</a>
+              <img :src="loginimg" alt="" class="divide-img">
+              <a href="javascript:;" id="manage" class="info-a" @click="appManage(3)" >应用管理</a>
+              <img :src="loginimg" alt="" class="divide-img">
+              <a href="javascript:;" id="logout" class="info-a" style="margin-right: 0px;"  @click="logOut">退出</a>
+            </p>
           </div>
         </div>
       </div>
     </div>
+    </div>
+    <router-view @on-result-change="resultChange"></router-view>
+    <div class="xs-home-footer">
+      <div id="copyright" class="copyright">
+        Copyright &copy;2015-{{xsdate}} Minivision.  All Rights Reserved
+      </div>
+    </div>
+    <BackTop></BackTop>
   </div>
 </template>
 
 <script>
+//code-xiaoshi
+import Vue from 'vue';
+import tmploginimage from './assets/img/homepage/navibar_divider2.png'
+import tmploginimage2 from './assets/img/homepage/navibar_QRcode2.png'
+import tmploginimage3 from './assets/img/homepage/code-xiaoshi.jpg'
+import login from './components/login/login.vue'
 
-  var newdate = new Date();
-  var xiaoshidate = newdate.getFullYear();
+// current date.
+let newdate = new Date();
+let xiaoshidate = newdate.getFullYear();
 
-  import Hello from './components/Hello'
-  import Rtimemoniter from './components/moniter/Rtimemoniter'
-  export default {
-    name: 'app',
-    data () {
-      return {
-        xsdate: xiaoshidate,
-        theme: 'primary'
+export default {
+  name: 'app',
+  data () {
+    return {
+      xsdate: xiaoshidate,
+      loginimg:tmploginimage,
+      loginimg2:tmploginimage2,
+      loginimg3:tmploginimage3,
+      loginStatus:false,
+      logoutStatus:true,
+      xslorr:1,//1:登录，2:注册.3:其他
+      isShow:false,//显示登录界面
+
+      nav:0
+    }
+  },
+  created () {
+<<<<<<< .mine
+      let path = window.location.pathname;
+      if(path === '/' || path === '/homepage'){
+          this.obj = 0;
+          this.$router.push('/homepage');
+          localStorage.setItem("nav",0)
       }
-    },
-    components: {
-      Hello,
-      Rtimemoniter
-    },
-    created () {
-      // this.$router.push('/hello');
-      this.$router.push('/moniter/rtimemoniter');
-      // this.$router.push('/search/search');
-    },
-    mounted () {
-      let winWidth = window.screen.availWidth;
-      let winHeight = window.screen.availHeight;
-      $(".entrancenav").width(winWidth);
-      $(".entrancefooter").width(winWidth);
-    },
-    methods: {
-      clickMenu: function (val) {
-        // body...
-        var routeName = this.$route.name;
-        if (val == 1) {
-          // alert('实时监控');
-          if (routeName == 'rtimemoniter') {
-            return;
+      else {
+          if( path.indexOf('tech') > 0) {
+              this.$router.push('/tech');
           }
-          this.$goRoute('/moniter/rtimemoniter')
-        } else if (val == 2) {
-          // alert('查询检索');
-          // alert(this.$route.name);
-          if (routeName == 'face' || routeName == 'photosearch' ||
-            routeName == 'alarm' || routeName == 'photorequire') {
-            return;
+            this.nav = localStorage.getItem("nav");
+
+||||||| .r384
+
+    //同步相关状态:
+    this.loginStatus = this.glogingStatus;
+    this.logoutStatus = !this.glogingStatus;
+
+    // this.$router.push('/homepage/homepage');
+    var routeName = this.$route.name;
+    // console.log(routeName);
+      if (routeName == 'homepage') {
+        this.gcurrentgIndex = 0;
+        this.$router.push('/homepage/homepage');
+      }else if(routeName == 'profile'){
+        this.gcurrentgIndex = 1;
+        this.$router.push('/technicalexp/technicalexp');
+      }else if(routeName == 'developercenter'){
+        this.gcurrentgIndex = 2;
+        this.$router.push('/developercenter/developercenter');
+      }else if(routeName == 'firmservice'){
+        this.gcurrentgIndex = 3;
+        this.$router.push('/firmservice/firmservice');
+      }else if(routeName == 'aboutxs'){
+        this.gcurrentgIndex = 4;
+        this.$router.push('/aboutxs/aboutxs');
+      }else if(routeName == 'newmessage'){
+
+        // 这里要判断登录状态
+        // ...
+        this.$router.push({path: '/login/newmessage'});
+      }else if(routeName == 'appmanage'){
+
+        // 这里要判断登录状态
+        // ...
+        this.$router.push({path: '/login/appmanage'});
+      }else{
+        this.gcurrentgIndex = 0;
+        this.$router.push('/homepage/homepage');
+=======
+    同步相关状态:
+    this.loginStatus = this.glogingStatus;
+    this.logoutStatus = !this.glogingStatus;
+
+    // this.$router.push('/homepage/homepage');
+    var routeName = this.$route.name;
+    // Vue.localStorage.set('currentroute', routeName);
+      if (routeName == 'homepage') {
+        this.gcurrentgIndex = 0;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/homepage/homepage');
+      }else if(routeName == 'profile'){
+        this.gcurrentgIndex = 1;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/technicalexp/technicalexp');
+      }else if(routeName == 'experience'){
+        this.gcurrentgIndex = 1;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/technicalexp/technicalexp');
+      }else if(routeName == 'match'){
+        this.gcurrentgIndex = 1;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/technicalexp/technicalexp');
+      }else if(routeName == 'verify'){
+        this.gcurrentgIndex = 1;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/technicalexp/technicalexp');
+      }else if(routeName == 'developercenter'){
+        this.gcurrentgIndex = 2;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/developercenter/developercenter');
+      }else if(routeName == 'firmservice'){
+        this.gcurrentgIndex = 3;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/firmservice/firmservice');
+      }else if(routeName == 'aboutxs'){
+        this.gcurrentgIndex = 4;
+        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+        this.$router.push('/aboutxs/aboutxs');
+      }else if(routeName == 'newmessage'){
+
+        // 这里要判断登录状态
+        // ...
+        this.$router.push({path: '/login/newmessage'});
+      }else if(routeName == 'appmanage'){
+
+        // 这里要判断登录状态
+        // ...
+        this.$router.push({path: '/login/appmanage'});
+      }else{
+//        this.gcurrentgIndex = 0;
+//        Vue.localStorage.set('currentindex', this.gcurrentgIndex);
+//        this.$router.push('/homepage/homepage');
+>>>>>>> .r430
+      }
+//    //同步相关状态:
+//    this.loginStatus = this.glogingStatus;
+//    this.logoutStatus = !this.glogingStatus;
+//
+//    // this.$router.push('/homepage/homepage');
+//    var routeName = this.$route.name;
+//    // console.log(routeName);
+//      if (routeName == 'homepage') {
+//        this.gcurrentgIndex = 0;
+//        this.$router.push('/homepage/homepage');
+//      }else if(routeName == 'profile'){
+//        this.gcurrentgIndex = 1;
+//        this.$router.push('/technicalexp/technicalexp');
+//      }else if(routeName == 'developercenter'){
+//        this.gcurrentgIndex = 2;
+//        this.$router.push('/developercenter/developercenter');
+//      }else if(routeName == 'firmservice'){
+//        this.gcurrentgIndex = 3;
+//        this.$router.push('/firmservice/firmservice');
+//      }else if(routeName == 'aboutxs'){
+//        this.gcurrentgIndex = 4;
+//        this.$router.push('/aboutxs/aboutxs');
+//      }else if(routeName == 'newmessage'){
+//
+//        // 这里要判断登录状态
+//        // ...
+//        this.$router.push({path: '/login/newmessage'});
+//      }else if(routeName == 'appmanage'){
+//
+//        // 这里要判断登录状态
+//        // ...
+//        this.$router.push({path: '/login/appmanage'});
+//      }else{
+//        this.gcurrentgIndex = 0;
+//        this.$router.push('/homepage/homepage');
+//      }
+//
+  },
+  mounted () {
+<<<<<<< .mine
+      let menu = ['homepage','tech','develop','service','about'];
+      let path = window.location.pathname;
+      this.nav = menu.indexOf((path.split("\/")[1]));
+||||||| .r384
+
+    if (this.$route.name == 'newmessage' || this.$route.name == 'appmanage') {//消息-应用
+      for(var i=0;i<5;i++){
+        $($($('div.nav ul li').children()[i]).children()[1]).removeClass();
+        $($($($('div.nav ul li').children()[i]).children()[0]).children()[0]).removeClass();
+        // $($($('div.nav ul li').children()[i]).children()[0]).children()[0]
+      }
+    }else{
+      $($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[1]).addClass('nav-item-selected');
+      $($($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[0]).children()[0]).addClass('nav-text-selected');
+    }
+
+
+=======
+    if (this.$route.name == 'newmessage' || this.$route.name == 'appmanage') {//消息-应用
+      for(var i=0;i<5;i++){
+        $($($('div.nav ul li').children()[i]).children()[1]).removeClass();
+        $($($($('div.nav ul li').children()[i]).children()[0]).children()[0]).removeClass();
+        // $($($('div.nav ul li').children()[i]).children()[0]).children()[0]
+      }
+    }else{
+    //  $($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[1]).addClass('nav-item-selected');
+    //  $($($($('div.nav ul li').children()[this.gcurrentgIndex]).children()[0]).children()[0]).addClass('nav-text-selected');
+    }
+
+
+>>>>>>> .r430
+  },
+  updated () {
+//    console.log('===app====updated =======');
+  },
+  components: {
+    login
+  },
+  methods: {
+<<<<<<< .mine
+||||||| .r384
+    test: function(obj){
+      this.$router.push('/test');
+    },
+=======
+      resultChange(val){
+          for(var i=0;i<5;i++){
+              $($($('div.nav ul li').children()[i]).children()[1]).removeClass();
+              $($($($('div.nav ul li').children()[i]).children()[0]).children()[0]).removeClass();
           }
-          this.$goRoute('/search/search')
-        } else if (val == 3) {
-          if (routeName == 'setting') {
+          $($($('div.nav ul li').children()[2]).children()[1]).addClass('nav-item-selected');
+          $($($($('div.nav ul li').children()[2]).children()[0]).children()[0]).addClass('nav-text-selected');
+      },
+    test: function(obj){
+      this.$router.push('/test');
+    },
+>>>>>>> .r430
+    onShowResultChange(val){
+      this.isShow = val;
+    },
+    onLoginSuccessChange(val){
+      // alert('login success');
+      this.glogingStatus = val;
+      Vue.localStorage.set('loginstatus', this.glogingStatus);
+      //同步相关状态:
+      this.loginStatus = this.glogingStatus;
+      this.logoutStatus = !this.glogingStatus;
+    },
+<<<<<<< .mine
+    clickTopNav: function (obj,menu) {
+        this.nav = obj;
+        let path = window.location.pathname;
+        if(path.indexOf((menu.split("\/")[1])) >0 ){
             return;
-          }
-          this.$goRoute('/setting/setting')
         }
+        this.$router.push(menu);
+        localStorage.setItem("nav",obj)
+||||||| .r384
+    clickTopNav: function (obj) {
+      // body...
+      for(var i=0;i<5;i++){
+        $($($('div.nav ul li').children()[i]).children()[1]).removeClass();
+        $($($($('div.nav ul li').children()[i]).children()[0]).children()[0]).removeClass();
+        // $($($('div.nav ul li').children()[i]).children()[0]).children()[0]
       }
+      $($($('div.nav ul li').children()[obj]).children()[1]).addClass('nav-item-selected');
+        $($($($('div.nav ul li').children()[obj]).children()[0]).children()[0]).addClass('nav-text-selected');
+      var routeName = this.$route.name;
+      if (obj == 0 && routeName != 'homepage') {
+        this.$router.push('/homepage/homepage');
+      }else if(obj == 1 && routeName != 'technicalexp'){
+        this.$router.push('/technicalexp/technicalexp');
+      }else if(obj == 2 && routeName != 'developercenter'){
+        this.$router.push('/developercenter/developercenter');
+      }else if(obj == 3 && routeName != 'firmservice'){
+        this.$router.push('/firmservice/firmservice');
+      }else if(obj == 4 && routeName != 'aboutxs'){
+        this.$router.push('/aboutxs/aboutxs');
+      }
+      this.gcurrentgIndex = obj;
+=======
+    clickTopNav: function (obj) {
+      // body...
+      for(var i=0;i<5;i++){
+        $($($('div.nav ul li').children()[i]).children()[1]).removeClass();
+        $($($($('div.nav ul li').children()[i]).children()[0]).children()[0]).removeClass();
+        // $($($('div.nav ul li').children()[i]).children()[0]).children()[0]
+      }
+      $($($('div.nav ul li').children()[obj]).children()[1]).addClass('nav-item-selected');
+        $($($($('div.nav ul li').children()[obj]).children()[0]).children()[0]).addClass('nav-text-selected');
+      Vue.localStorage.set('menuindex', 0);
+      Vue.localStorage.set('submenuindex', 0);
+      Vue.localStorage.set('currentroute', 'profile');
+      var routeName = this.$route.name;
+      if (obj == 0 && routeName != 'homepage') {
+        this.$router.push('/homepage/homepage');
+      }else if(obj == 1 && routeName != 'technicalexp' 
+        && routeName != 'profile' && routeName != 'experience' 
+        && routeName != 'match' && routeName != 'verify'){
+        this.$router.push('/technicalexp/technicalexp');
+      }
+      else if(obj == 2 && routeName != 'develop'){
+          if(window.location.hash.indexOf('develop') >0 ){
+              return;
+          }
+          if(Vue.localStorage.get('selected') !== null) {
+              this.$router.push('/develop/'+Vue.localStorage.get('selected'));
+              return;
+          }
+          this.$router.push('/develop/');
+      }
+
+      else if(obj == 3 && routeName != 'firmservice'){
+          if(window.location.hash.indexOf('firmservice') >0 ){
+              return;
+          }
+        this.$router.push('/firmservice');
+      }else if(obj == 4 && routeName != 'aboutxs'){
+        this.$router.push('/aboutxs/aboutxs');
+      }
+      this.gcurrentgIndex = obj;
+>>>>>>> .r430
+    },
+    mouseoverxs: function(obj){
+      if (obj === 12) {
+        $(".dropbox").css("display", "block");
+      }
+    },
+    mouseoutxs: function(obj){
+      if (obj === 12) {
+        $(".dropbox").css("display", "none");
+      }
+
+    },
+    logOut: function(obj){
+      this.glogingStatus = false;
+      Vue.localStorage.set('loginstatus', this.glogingStatus);
+      //同步相关状态:
+      this.loginStatus = this.glogingStatus;
+      this.logoutStatus = !this.glogingStatus;
+      this.gcurrentgIndex = 0;
+      this.$router.push('/homepage');
+      this.nav  = 0;
+    },
+    loginOrregister: function(obj){
+      if (obj == 0) {//登录
+        // this.glogingStatus = false;
+        // //同步相关状态:
+        // this.loginStatus = this.glogingStatus;
+        // this.logoutStatus = !this.glogingStatus;
+
+        this.isShow = true;
+        this.xslorr = 1;
+
+      }else if(obj == 1){//注册
+        this.isShow = true;
+        this.xslorr = 2;
+      }
+    },
+    showMessage: function(obj){//新消息
+      this.nav = -1;
+      this.$router.push('/login/newmessage');
+    },
+    appManage: function(obj){
+      this.nav = -1;
+      this.$router.push('/login/appmanage');
     }
   }
+}
 </script>
 
-<style>
-
-</style>
 <style scoped>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /*text-align: center;*/
-    color: #2c3e50;
-    background: #fdfdfd;
-    /*margin-top: 60px;*/
-  }
-
-  .entrancenav {
-    position: absolute;
-    top: 0px;
-    width: 100%;
-    height: 60px;
-    background: #999999;
-  }
-
-  .entrancefooter {
-    position: absolute;
-    margin-bottom: -10px;
-    width: 100%;
-    height: 60px;
-    background: #999999;
-  }
-
-  .copyright {
-    background: #999999;
-    font-size: 13px;
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/*header*/
+.mainapp div {
+    display: block;
+}
+.mainapp .xs-header {
+  position: fixed;
+  width: 100%;
+  min-width: 1200px;
+  color: #fff;
+  user-select: none;
+  z-index: 99;
+}
+.mainapp .xs-header .left {
+  position: relative;
+  width: 30%;
+  height: 80px;
+  float: left;
+}
+.mainapp .xs-header .xs-logo-icon {
+  position: relative;
+  margin-top: 15px;
+  width: 270px;
+  height: 50px;
+  margin-left: 15px;
+  display: inline-block;
+  background: url(./assets/img/homepage/navibar_logo_1170222.png);
+}
+.mainapp .xs-header .right {
+  position: relative;
+  width: 70%;
+  height: 80px;
+  float: left;
+}
+.mainapp .xs-header .bar {
+  position: relative;
+  width: 770px;
+  height: 80px;
+  float: right;
+}
+.mainapp .xs-header .nav {
+  float: left;
+  width: 562px;
+  height: 80px;
+}
+.mainapp .xs-header ul {
+  width: 100%;
+  height: 100%;
+}
+.mainapp ul ol {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+.mainapp .xs-header .nav-item {
+  float: left;
+  position: relative;
+  margin-left: 0;
+  width: 106px;
+  height: 80px;
+}
+.mainapp .xs-header .nav-item-content {
+  position: absolute;
+    font-size: 16px;
+    top: 0;
+    width: 106px;
+    height: 80px;
+    line-height: 80px;
     text-align: center;
-    color: #111111;
-    padding-top: 28px;
-    padding-bottom: 28px;
-    border-top: 1px solid #bbbbbb;
-  }
+}
+.mainapp .xs-header .nav-item-content a {
+  display: block;
+  text-decoration: none;
+  color: #a8acba;
+  text-align: center;
+}
+.mainapp .xs-header .nav-text-selected {
+  color: #fff !important;
+}
+.mainapp .xs-header .nav-item-selected {
+  position: absolute;
+  left: 0;
+  top: 77px;
+  bottom: 0;
+  width: 106px;
+  height: 3px;
+  background: #207BEC;
+}
+.mainapp .xs-header .shadow {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  display: block;
+  left: 0px;
+  top: 80px;
+  background: url(./assets/img/homepage/navibar_shadow.png);
+}
+.mainapp .xs-header .info {
+  float: right;
+  margin-right: 15px;
+  width: 193px;
+  height: 100%;
+  text-align: right;
+}
+.mainapp .xs-header .logout {
+  padding-top: 28px;
+  font-size: 14px;
+}
+.mainapp .xs-header .login {
+  padding-top: 28px;
+  font-size: 14px;
+}
+.mainapp .xs-header .login p {
+  color: #a8acba;
+}
+.mainapp .xs-header .info-a {
+  color: #a8acba;
+  text-decoration: none;
+  margin-right: 8px;
+}
+.mainapp a {
+  color: #207BEC;
+  text-decoration: none;
+}
+.mainapp a:hover{
+  color: #207bec !important;
+}
+.mainapp .xs-header .code {
+  width: 18px;
+    height: 18px;
+    line-height: 80px;
+    vertical-align: middle;
+}
+.mainapp img {
+  border: 0;
+    vertical-align: bottom;
+}
+.mainapp .dropbox {
+  display: none;
+    position: absolute;
+    margin: 12px 0px 0 48px;
+    background-color: #fff;
+    box-shadow: 2px 3px 5px rgba(0,0,0,.31);
+    border: 0 rgba(0,0,0,0);
+}
+.mainapp .dropbox-arrow {
+  position: absolute;
+    width: 0;
+    height: 0;
+    top: -29px;
+    left: 122px;
+  border: 15px dashed transparent;
+  border-bottom: solid #fff;
+  overflow: hidden;
+}
+.mainapp i {
+  font-style: italic;
+}
+.mainapp .drop-content {
+  padding: 10px;
+}
+.mainapp .dropbox-img {
+  width: 159px;
+  height: 159px;
+}
+.mainapp .dropbox-p {
+  font-size: 16px;
+    color: #252525;
+    text-align: center;
+}
+.mainapp p{
+  margin: 0px;
+}
+.mainapp #manage:hover{
+  color: #fff !important;
+}
+.mainapp #message:hover{
+  color: #fff !important;
+}
+/*footer*/
+.mainapp .xs-home-footer {
+  position: relative;
+  height: 70px;
+  width: 100%;
+  overflow: hidden;
+}
+.mainapp .xs-home-footer .copyright {
+  width: 100%;
+  height: 70px;
+  line-height: 70px;
+  color: #6b8099;
+  font-size: 12px;
+  text-align: center;
+  background: #07102c;
+}
 
 </style>

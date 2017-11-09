@@ -1,0 +1,348 @@
+
+.match div {
+    display: block;
+}
+
+.match h1, h2 {
+    font-weight: normal;
+}
+
+.match .xs-intro {
+    position: relative;
+    background: #fff;
+    width: 100%;
+}
+
+.match .xs-exp-wall {
+    height: 218px;
+    background: #808080;
+    overflow: hidden;
+}
+
+.match .xs-exp-wall .wrapper {
+    width: 872px;
+}
+
+.match .xs-exp-wall ul {
+    position: relative;
+    top: 0px;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+}
+
+.match ul, ol {
+    list-style-type: none;
+    padding: 0;
+}
+
+.match .xs-exp-wall li {
+    float: left;
+    width: 109px;
+    height: 109px;
+    overflow: hidden;
+    background: #c6c9cc;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.match a {
+    color: #207BEC;
+    text-decoration: none;
+    cursor: auto;
+}
+
+.xs-exp-wall img{
+    width: 109px;
+    height: 109px;
+    opacity: 0.60;
+    border: 0;
+    vertical-align: bottom;
+}
+.xs-exp-wall img:hover{
+    width: 109px;
+    height: 109px;
+    opacity: 1.0;
+    border: 0;
+    vertical-align: bottom;
+}
+
+.match .xs-exp-demo {
+    display: inline-block;
+    margin-top: 14px;
+    float: right;
+    /*height: 1500px;*/
+    background: #fff;
+}
+
+.match .xs-exp-face-verify {
+    position: relative;
+    height: 760px;
+}
+
+.match .xs-exp-face-verify .left {
+    width: 430px;
+    float: left;
+    position: relative;
+}
+
+.match .xs-exp-face-verify .right {
+    position: relative;
+    margin-left: 10px;
+    width: 430px;
+    float: left;
+}
+
+.match .xs-exp-face-verify .verify-button {
+    position: relative;
+    float: left;
+    margin-top: 30px;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    background: #65efc4;
+}
+
+.xs-exp-face-verify .left {
+    width: 430px;
+    float: left;
+    position: relative;
+}
+
+.xs-exp-demo .canvas430 {
+    position: relative;
+    width: 430px;
+    height: 430px;
+}
+.xs-exp-demo .border {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: #d2d2de 1px solid;
+    background: #f8f8f8;
+}
+.xs-exp-demo .show-layer {
+    position: relative;
+    width: 430px;
+    height: 430px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    display:table-cell;
+    vertical-align:middle;
+}
+.xs-exp-demo .image-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.xs-exp-face-verify img{
+    max-width: 100%;
+    /*max-height: 100%;*/
+    vertical-align: middle;
+}
+.fileUpload::before {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    content: "上传本地照片";
+    width: 100%;
+    height: 100%;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    background: rgb(54, 136, 255);
+}
+.fileUpload input.upload {
+    display: block;
+    background: #f00;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 40px;
+    font-size: 100px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.fileUpload {
+    position: relative;
+    width: 100%;
+    height: 40px;
+}
+.xs-exp-demo-input {
+    position: relative;
+    margin-top: 10px;
+    height: 90px;
+    /* background: #0ff; */
+}
+.xs-exp-demo-input .url-field {
+    position: absolute;
+    font-size: 14px;
+    left: 0;
+    top: 0;
+    width: calc(80% - 14px);
+    height: 42px;
+    line-height: 40px;
+    display: block;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 14px;
+    outline: none;
+    border: solid 1px #b3b3b3;
+}
+.xs-exp-demo-input .paste {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 100%;
+    height: 42px;
+    margin: 0;
+    padding: 0;
+}
+.xs-exp-demo-analysisBtn {
+    left: 70%;
+    top: 0;
+    width: 30%;
+    height: 42px;
+    border: solid 1px #3688ff;
+    text-align: center;
+}
+.xs-exp-demo-btn {
+    position: absolute;
+    color: #fff;
+    font-size: 16px;
+    background: #3688ff;
+    cursor: pointer;
+}
+.xs-exp-face-verify .verify-result {
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    background: #fff;
+    border: #d2d2d2 1px solid;
+}
+.xs-exp-face-verify .result-container {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 145px;
+    margin-top: 10px;
+}
+.verify-result p {
+    margin-top: 25px;
+    color: #17EDA9;
+}
+.xs-exp-face-verify .similar-score {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: #17EDA9;
+    font-size: 36px;
+}
+.xs-exp-face-verify .similar {
+    position: absolute;
+    width: 100%;
+    top: 132px;
+    left: 20px;
+    height: 400px;
+    margin-left: 22px;
+}
+ .line {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 20px;
+}
+.xs-exp-face-verify .item {
+    position: relative;
+    float: left;
+    width: 120px;
+    height: 120px;
+    margin-right: 15px;
+    margin-bottom: 19px;
+}
+.xs-exp-face-verify .pic {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 0;
+    top: 0;
+    background-size: contain;
+    /*background: url(http://open.youtu.qq.com/famous/132.png) no-repeat center;*/
+}
+.xs-exp-face-verify .score {
+    background: #b423ee !important;
+}
+.xs-exp-face-verify .score_label {
+    position: absolute;
+    width: 120px;
+    height: 20px;
+    line-height: 20px;
+    left: 0;
+    bottom: 0;
+    opacity: 0.7;
+    filter: alpha(opacity = 70);
+}
+ .score_text {
+    position: absolute;
+    width: 120px;
+    height: 20px;
+    line-height: 20px;
+    left: 0;
+    bottom: 0;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+}
+.xs-exp-face-verify .score_blue {
+     background: #408eff !important;
+}
+ .request-body {
+    position: relative;
+    width: 100%;
+    height: 145px;
+    margin-top: 20px;
+}
+ .box-border {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: #d2d2d2 1px solid;
+    overflow: hidden;
+    background: #f8f8f8;
+}
+.xs-exp-demo .req-title, .xs-exp-demo .response-title {
+    position: relative;
+    font-size: 16px;
+    color: #207BEC;
+    margin-top: 22px;
+    margin-left: 18px;
+}
+ .response-body {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    margin-top: 10px;
+}

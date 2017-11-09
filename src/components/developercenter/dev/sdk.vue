@@ -1,0 +1,212 @@
+<<<<<<< .mine
+<template>
+    <div class="help-section " style="background: url('/content/img/developer/title_icon2.png') no-repeat;">
+        <div class="help-title">SDK下载</div>
+        <img class="help-line" src="../../../assets/img/developer/title_line.png">
+        <p class="tool-p">腾讯小视开放平台为广大开发者提供丰富的SDK，辅助开发者快速方便、快捷的使用服务。</p>
+        <p class="tool-p">同时也欢迎广大开发者贡献各语言版本的SDK。</p>
+        <h3 class="help-middle-title">服务端SDK</h3>
+        <table class="table" style="300px">
+            <thead><tr>
+                <th>SDK类型</th>
+                <th>最近更新</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="https://github.com/Tencent-YouTu/java_sdk" target="_blank"><img src="http://open.youtu.qq.com/content/img/developer/icon_java.png" class="sdk-img-server" width="200" height="100" alt="java"></a></td>
+                <td>2017-07-03</td>
+                <td>V3.1 增加通用OCR、行驶证驾驶证OCR识别功能</td>
+            </tr>
+            <tr>
+                <td><a href="https://github.com/Tencent-YouTu/Python_sdk" target="_blank"><img src="http://open.youtu.qq.com/content/img/developer/icon_python.png" class="sdk-img-server" width="200" height="100" alt="Python"></a></td>
+                <td>2017-07-03</td>
+                <td>V3.1 增加通用OCR、行驶证驾驶证OCR识别功能</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+<script>
+    export default{
+        name: 'sdk',
+        data () {
+            return{
+                test : this.selected
+            }
+        },
+        created :
+            function () {
+                this.$emit('on-result-change', 'sdk')
+            },
+        methods:{
+        },
+        props:{
+            selected:String
+        }
+    }
+</script>
+<style scoped>
+    .help-title{
+        font-size: 20px;
+    }
+    .help-section {
+        /*background: url(../../../assets/img/developer/title_icon1.png) no-repeat;*/
+        margin-bottom: 34px;
+        overflow: hidden;
+        padding-left: 50px;
+        width: 974px;
+    }
+    .help-section p {
+        margin: 10px 0;
+        line-height: 1.5;
+    }
+    .tool-p {
+        font-size: 14px;
+        color: #333333;
+    }
+    .help-middle-title {
+        font-size: 20px;
+        margin-left: 0px;
+        margin-top: 20px;
+        margin-bottom: 12px;
+        color: #666666;
+    }
+    .table {
+        font-family: Consolas,Menlo,Courier,monospace;
+        font-size: 12px;
+        border-collapse: collapse;
+        border-spacing: 0;
+        empty-cells: show;
+        border: 0px solid #e9e9e9;
+        margin-bottom: 24px;
+    }
+    .table th {
+        background-color: #dddee1;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 8px 16px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .table td{
+        border-bottom: 1px solid #eeeeee;
+        padding: 32px 32px;
+        text-align: left;
+        vertical-align: middle!important;
+    }
+    .table th {
+        white-space: nowrap;
+        color: #5c6b77;
+        font-weight: 600;
+    }
+</style>||||||| .r0
+=======
+<template>
+    <div class="yt-content">
+    <div class="help-section " style="background: url('/content/img/developer/title_icon2.png') no-repeat;">
+        <div class="help-title">SDK下载</div>
+        <img class="help-line" src="../../../assets/img/developer/title_line.png">
+        <p class="tool-p">腾讯小视开放平台为广大开发者提供丰富的SDK，辅助开发者快速方便、快捷的使用服务。</p>
+        <p class="tool-p">同时也欢迎广大开发者贡献各语言版本的SDK。</p>
+        <h3 class="help-middle-title">服务端SDK</h3>
+        <table class="table" style="width: 800px">
+            <thead><tr>
+                <th>SDK类型</th>
+                <th>最近更新</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="https://github.com/Tencent-YouTu/java_sdk" target="_blank"><img src="http://open.youtu.qq.com/content/img/developer/icon_java.png" class="sdk-img-server" width="200" height="100" alt="java"></a></td>
+                <td>2017-07-03</td>
+                <td>V3.1 增加通用OCR、行驶证驾驶证OCR识别功能</td>
+            </tr>
+            <tr>
+                <td><a href="https://github.com/Tencent-YouTu/Python_sdk" target="_blank"><img src="http://open.youtu.qq.com/content/img/developer/icon_python.png" class="sdk-img-server" width="200" height="100" alt="Python"></a></td>
+                <td>2017-07-03</td>
+                <td>V3.1 增加通用OCR、行驶证驾驶证OCR识别功能</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</template>
+<script>
+    export default{
+        name: 'sdk',
+        data () {
+            return{
+                test : this.selected
+            }
+        },
+        created :
+            function () {
+                let obj = {};
+                obj.selected = 'sdk',
+                obj.pselected = 'dev';
+                obj.pselecteds = ['dev']
+                this.$emit('on-result-change', obj)
+            },
+        methods:{
+        },
+        props:{
+            selected:String
+        }
+    }
+</script>
+<style scoped>
+    .help-title{
+        font-size: 20px;
+    }
+    .help-section {
+        /*background: url(../../../assets/img/developer/title_icon1.png) no-repeat;*/
+        margin-bottom: 34px;
+        overflow: hidden;
+        padding-left: 50px;
+        /*width: 974px;*/
+    }
+    .help-section p {
+        margin: 10px 0;
+        line-height: 1.5;
+    }
+    .tool-p {
+        font-size: 14px;
+        color: #333333;
+    }
+    .help-middle-title {
+        font-size: 20px;
+        margin-left: 0px;
+        margin-top: 20px;
+        margin-bottom: 12px;
+        color: #666666;
+    }
+    .table {
+        font-family: Consolas,Menlo,Courier,monospace;
+        font-size: 12px;
+        border-collapse: collapse;
+        border-spacing: 0;
+        empty-cells: show;
+        border: 0px solid #e9e9e9;
+        margin-bottom: 24px;
+    }
+    .table th {
+        background-color: #dddee1;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 8px 16px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .table td{
+        border-bottom: 1px solid #eeeeee;
+        padding: 32px 32px;
+        text-align: left;
+        vertical-align: middle!important;
+    }
+    .table th {
+        white-space: nowrap;
+        color: #5c6b77;
+        font-weight: 600;
+    }
+</style>>>>>>>> .r430

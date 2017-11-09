@@ -1,0 +1,162 @@
+<template>
+        <div class="qt2">
+          <div class="xs-body">
+            <div class="xs-mid">
+              <div class="xs-side ng-scope">
+                <dl class="xs-side-section" v-for="item in sideData">
+                  <dd class="xs-side-level1 non-border-top">
+                    <dl class="level1-item" :class="pselecteds.indexOf(item.title) !== -1? 'parantSelected' : ''">
+                      <div class="open-image">
+                        <img  :src="pselecteds.indexOf(item.title)!==-1 ? openImg : closeImg" >
+                      </div>
+                      <a href="javascript:void(0)" class="xs-side-api-a" :class="pselected ==item.title ? 'selected' : ''" @click="clickleve(item.title)">{{item.title}}</a>
+                    </dl>
+                    <dl class="xs-side-section1" :class="pselecteds.indexOf(item.title)!==-1 ? 'xsserviceopen' : ''" v-for="subitem in item.childs">
+                      <dd>
+                        <a class="xs-side-api-a level2-item" :class="selected==subitem.title ? 'selected' : ''" @click="clicksubitem(subitem,item.title)">{{ subitem.title }}</a>
+                      </dd>
+                    </dl>
+                  </dd>
+                </dl>
+        </div>
+     </div>
+      <router-view></router-view>
+  </div>
+
+    <!-- <BackTop :height="100" :bottom="200">
+      <div class="top">返回顶端</div>
+    </BackTop> -->
+  </div>
+</template>
+<script>
+    import cImg from '../../assets/img/technicalexp/bt_menu_close.png'
+    import oImg from '../../assets/img/technicalexp/bt_menu_open.png'
+
+    let sideArr = [
+        {
+            title:'新手指引',
+            childs:[{
+                title:'接入流程',
+                name:'newuser',
+            },{
+                title:'鉴权服务技术方案',
+                name:'authent',
+            },{
+                title:'开发者协议'
+            },
+                {
+                    title:'快速开始一个应用开发'
+                }
+            ]
+        },
+        {
+            title:'开发者工具',
+            childs:[{
+                title:'SDK以及文档'
+            },{
+                title:'深度识别引擎订制'
+            }
+            ]
+        },
+        {
+            title:'API文档',
+            childs:[{
+                title:'API概述',
+                name:'apisum',
+                childs: []
+            },
+                {
+                    title:'人脸检测与分析'
+                },
+                {
+                    title:'人脸识别'
+                }
+            ]
+        }
+    ];
+
+    export default{
+  	name: 'developercenter',
+  	data () {
+  	  return {
+          sideData: sideArr,
+          openImg:  cImg,
+          closeImg: oImg,
+          pselecteds:[],
+          pselected:'',
+          selected:''
+  	  }
+  	},
+      mounted:function () {
+         this.$goRoute("/developercenter/developercenter/newuser");
+      },
+      methods:{
+         clickleve: function(title) {
+  	         console.trace(this.pselecteds)
+              let index =this.pselecteds.indexOf(title);
+              if(  index > -1){
+                 this.pselecteds.splice(index,1);
+  	             return;
+             }
+              this.pselecteds.push(title);
+          },
+          clicksubitem: function(item,ptitle) {
+            this.selected  = item.title;
+            this.pselected = ptitle;
+            this.pselecteds = [];
+            this.pselecteds.push(ptitle);
+            this.$goRoute("/developercenter/developercenter/"+item.name);
+          }
+      }
+  }
+</script>
+<style scoped>
+    @import url(../../assets/css/technicalexp.css);
+  .content-wrapper {
+  	position: relative;
+    /* width: 100%; */
+    /* min-width: 1200px; */
+  }
+  .help-body {
+    position: relative;
+    padding: 110px 0 0;
+    background: #fff;
+    margin-bottom: 60px;
+    min-height: calc(100vh - 190px);
+  }
+  .help-body .constr_non_index {
+    width: 1172px;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .yt-side{
+    width: 280px;
+    float: left;
+  }
+  .guide-steps p {
+    margin-left: 86px;
+    font-size: 16px;
+    color: #999999;
+  }
+  /*.top{
+    padding: 10px;
+    background: rgba(0, 153, 229, .7);
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+  }*/
+
+  /*动态绑定样式*/
+  .qt2 .active {
+    background-color: yellow;
+  }
+
+  .qt2 .parantSelected {
+    background: #fff;
+  }
+
+  .qt2 .xsserviceopen {
+    max-height: 2800px !important;
+  }
+</style>
